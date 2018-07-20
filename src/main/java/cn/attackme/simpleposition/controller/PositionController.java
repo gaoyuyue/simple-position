@@ -2,6 +2,7 @@ package cn.attackme.simpleposition.controller;
 
 import cn.attackme.simpleposition.model.Position;
 import cn.attackme.simpleposition.service.PositionService;
+import cn.attackme.simpleposition.utils.CoordinateConversion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ public class PositionController {
 
     @PostMapping("/position")
     public void saveByKey(String key, Position position) {
+        position = CoordinateConversion.bd_google_baidu_encrypt(position.getLatitude(), position.getLongitude());
         messagingTemplate.convertAndSend("/topic/" + key, position);
         Map<String, Position> map = new HashMap<>();
         map.put(key, position);

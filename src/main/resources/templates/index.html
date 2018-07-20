@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "/positions/now",
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+            var socket = new SockJS('/ws');
+            var stompClient = Stomp.over(socket);
+            stompClient.connect({}, function(frame) {
+
+                stompClient.subscribe("/queue", function(data) {
+                    console.log(data);
+                });
+                stompClient.subscribe("/topic/1", function(data) {
+                    console.log(data);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -13,4 +13,14 @@ public class IndexController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/route")
+    public String route() {
+        return "route";
+    }
+
+    @GetMapping("/realTime")
+    public String realTime() {
+        return "realTime";
+    }
 }

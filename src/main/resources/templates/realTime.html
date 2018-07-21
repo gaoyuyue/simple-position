@@ -19,6 +19,9 @@
 <script type="text/javascript">
     var map = new BMap.Map("allmap");
     var pointData = {};
+    var busIcon = new BMap.Icon("http://localhost:8099/bus.png", new BMap.Size(32, 32), {
+        imageOffset: new BMap.Size(0, 0)
+    });
     $(document).ready(function() {
         $.ajax({
             url: "/positions/now",
@@ -30,7 +33,7 @@
                 map.enableScrollWheelZoom(true);
                 Object.keys(data).forEach(function(key){
                     let e = data[key];
-                    let marker = new BMap.Marker(new BMap.Point(e.longitude, e.latitude));
+                    let marker = new BMap.Marker(new BMap.Point(e.longitude, e.latitude),{icon:busIcon});
                     map.addOverlay(marker);
                     pointData[key] = marker;
                 });
@@ -42,7 +45,7 @@
                         Object.keys(data).forEach(function (key) {
                             let e = data[key];
                             if (pointData[key] === undefined) {
-                                let marker = new BMap.Marker(new BMap.Point(e.longitude, e.latitude));
+                                let marker = new BMap.Marker(new BMap.Point(e.longitude, e.latitude),{icon:busIcon});
                                 map.addOverlay(marker);
                                 pointData[key] = marker;
                             } else {

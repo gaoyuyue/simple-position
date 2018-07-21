@@ -17,6 +17,10 @@
 </body>
 </html>
 <script type="text/javascript">
+    var busIcon = new BMap.Icon("http://localhost:8099/bus.png", new BMap.Size(32, 32), {
+        imageOffset: new BMap.Size(0, 0)
+    });
+    var busMark;
     var drawLine = function (map, p1, p2) {
         let polyline = new BMap.Polyline([p1, p2], {strokeColor: "blue", strokeWeight: 6, strokeOpacity: 0.5});
         map.addOverlay(polyline);
@@ -34,6 +38,8 @@
                 });
                 if (pointData.length > 0){
                     map.centerAndZoom(pointData[pointData.length-1], 15);
+                    busMark = new BMap.Marker(pointData[pointData.length-1],{icon:busIcon});
+                    map.addOverlay(busMark);
                 } else {
                     alert("暂无数据");
                 }
@@ -52,8 +58,11 @@
                         let point = new BMap.Point(data.longitude, data.latitude);
                         if (pointData.length > 0) {
                             drawLine(map,pointData[pointData.length-1],point);
+                            busMark.setPosition(point);
                         } else {
                             map.centerAndZoom(point, 15);
+                            busMark = new BMap.Marker(point,{icon:busIcon});
+                            map.addOverlay(busMark);
                         }
                         pointData.push(point);
                     });

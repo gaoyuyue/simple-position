@@ -5,6 +5,7 @@ import cn.attackme.simpleposition.service.PositionService;
 import cn.attackme.simpleposition.utils.CoordinateConversion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import java.util.Map;
  * @email gaoyuyue@outlook.com
  */
 @RestController
+@CrossOrigin
 public class PositionController {
     @Autowired
     private PositionService positionService;

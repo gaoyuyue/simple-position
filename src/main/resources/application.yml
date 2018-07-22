@@ -6,5 +6,5 @@ server:
   port: 8099
 
 file:
-  path: ./data
+  path: ./data/
 

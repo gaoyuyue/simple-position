@@ -58,7 +58,7 @@ public class PositionService {
      * 定时任务持久化过期数据
      */
     @Scheduled(cron = "0 */1 * * * ? ")
-    private void persist() throws IOException {
+    public void persist() throws IOException {
         Set<String> keys = redisTemplate.keys("*");
         for (String key : keys){
             Long size = redisTemplate.opsForList().size(key);
